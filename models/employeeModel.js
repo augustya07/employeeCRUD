@@ -19,9 +19,8 @@ const employeeSchema = mongoose.Schema(
             country: {type: String, required: true}
         },
         team: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             required: 'team is required',
-            ref: 'Team'
         },
         gender: {
             type: String,
