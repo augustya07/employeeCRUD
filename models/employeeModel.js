@@ -21,6 +21,7 @@ const employeeSchema = mongoose.Schema(
         team: {
             type: mongoose.Schema.Types.ObjectId,
             required: 'team is required',
+            ref: 'Team'
         },
         gender: {
             type: String,
@@ -32,4 +33,4 @@ const employeeSchema = mongoose.Schema(
 
 const  Employee = mongoose.model('Employee',employeeSchema)
 
-export default Employee;
+export default Employee
