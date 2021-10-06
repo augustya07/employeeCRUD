@@ -2,6 +2,10 @@ import asyncHandler from 'express-async-handler'
 import Employee from "../models/employeeModel.js";
 
 
+const check = asyncHandler(async  (req,res ) => {
+    res.send('Working for')
+})
+
 const createEmployee = asyncHandler(async (req, res) => {
     const {
         name,
@@ -11,7 +15,7 @@ const createEmployee = asyncHandler(async (req, res) => {
         gender
     } = req.body;
 
-    const employee = await Employee.create({
+    const employee =   new Employee ({
         name,
         salary,
         address,
@@ -19,7 +23,11 @@ const createEmployee = asyncHandler(async (req, res) => {
         gender
     })
 
-    if (employee) {
+    const createdEmployee = await employee.save()
+
+   // res.json(employee)
+   console.log(createdEmployee)
+    
         res.status(201).json({
             _id: employee._id,
             name: employee.name,
@@ -28,15 +36,15 @@ const createEmployee = asyncHandler(async (req, res) => {
             team: employee.team,
             gender: employee.gender
         })
-    } else {
-        res.status(400)
-        throw new Error('Invalid employee data')
-    }
+    // else {
+    //     res.status(400)
+    //     throw new Error('Invalid employee data')
+    // }
 })
 
 
 const getEmployee = asyncHandler(async (req, res) => {
-    const employee = await Employee.findById(req.employee._id)
+    const employee = await Employee.findById(req.params.id)
 
     if (employee) {
         res.json({
@@ -92,10 +100,19 @@ const updateEmployee = asyncHandler(async (req, res,) => {
         employee.gender = gender;
 
         const updatedEmployee = await employee.save()
-        res.json({message: 'Employee updated '})
+        res.status(201).json({
+            // message: 'Employee updated ',
+            updatedEmployee,
+            message: "Employee updated"
+
+        }
+
+        )
     } else {
         res.status(404)
         throw new Error('Employee not found')
     }
 })
 
+
+export  {createEmployee,getEmployee,updateEmployee,deleteEmployee,getEmployees,check}

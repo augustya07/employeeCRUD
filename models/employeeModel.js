@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const employeeSchema = mongoose.Schema(
+const employeeSchema =  new mongoose.Schema(
     {
         name: {
             type: String,
@@ -13,10 +13,10 @@ const employeeSchema = mongoose.Schema(
             required: true
         },
         address: {
-            street: {type: String, required: true},
-            city: {type: String, required: true},
-            postCode: {type: String, required: true},
-            country: {type: String, required: true}
+            type: String,
+            required: 'address is required',
+            minLength: [2, 'address is too short'],
+            maxLength: [32, 'address is too long']
         },
         team: {
             type: String,
@@ -25,7 +25,7 @@ const employeeSchema = mongoose.Schema(
         gender: {
             type: String,
             required: true,
-            enum: ['male, female', 'other']
+            enum: ['male', 'female', 'other']
         }
     }
 )

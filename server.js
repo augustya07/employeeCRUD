@@ -2,23 +2,30 @@ import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import connectDB from "./config/db.js";
+import  employeeRoutes from './routes/employeeRoute.js';
 
 
 dotenv.config()
 
-connectDB()
+connectDB().catch((err) => {console.log(err)})
 
 
 const app = express()
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'))
-}
+app.use(express.json())
 
-app.use(express.json)
 
+
+
+
+app.use('/api/v1', employeeRoutes)
+//
+app.get('/' ,(req,res)   => {
+    res.send('Wokring')
+})
+//
 
 const PORT = process.env.PORT || 5001
-app.listen(PORT, () => {
-    console.log(`Running on ${process.env.NODE_ENV} ${PORT}`)
-})
+
+app.listen(PORT, console.log(`listening on port ${PORT}`));
+
