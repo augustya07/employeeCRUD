@@ -1,42 +1,40 @@
-import React, { useState } from 'react'
-import Button from "@mui/material/Button";
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
-import IconButton from "@mui/material/IconButton";
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import styled from "styled-components";
 
-
+const StyledSearchBar = styled.div`
+display: flex;
+gap: 10px;
+`;
 
 const SearchBox = ({ history }) => {
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState("");
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (keyword.trim()) {
-      history.push(`/search/${keyword}`)
+      history.push(`/search/${keyword}`);
     } else {
-      history.push('/')
+      history.push("/");
     }
-  }
+  };
 
   return (
-<div>
-        
-        <InputBase 
-        type='text'
-        name='q'
-        onChange={(e) => setKeyword(e.target.value)}
-        placeholder='Search Employee...'
-        />
+    <Form onSubmit={submitHandler} inline>
+      <StyledSearchBar>
+        <Form.Control
+          type="text"
+          name="q"
+          onChange={(e) => setKeyword(e.target.value)}
+          placeholder="Search Products..."
+          className="mr-sm-2 ml-sm-5"
+        ></Form.Control>
+        <Button type="submit" variant="success" className="p-2">
+          <i class="fas fa-search"></i>
+        </Button>
+      </StyledSearchBar>
+    </Form>
+  );
+};
 
-      <IconButton
-      // style={{marginLeft: '-100px'}}
-       type='submit'
-       startIcon={<SearchIcon />}
-        onClick={submitHandler}>
-          <SearchIcon />
-      </IconButton>
-      </div>
-  )
-}
-
-export default SearchBox
+export default SearchBox;

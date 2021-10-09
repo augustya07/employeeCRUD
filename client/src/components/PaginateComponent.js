@@ -1,25 +1,22 @@
-import React from 'react'
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Pagination } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
-const PaginateComponent = ({ pages, page, keyword = '' }) => {
+const Paginate = ({ pages, page, keyword = "" }) => {
   return (
     pages > 1 && (
       <Pagination>
         {[...Array(pages).keys()].map((x) => (
-          <Link
+          <LinkContainer
             key={x + 1}
-            to={
-                keyword
-                  ? `/search/${keyword}/page/${x + 1}`
-                  : `/page/${x + 1}`}>
+            to={keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x + 1}`}
+          >
             <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
-          </Link>
+          </LinkContainer>
         ))}
       </Pagination>
     )
-  )
-}
+  );
+};
 
-export default PaginateComponent
+export default Paginate;

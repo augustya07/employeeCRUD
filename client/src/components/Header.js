@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import {Button} from "react-bootstrap";
+
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -39,8 +39,7 @@ const Header = () => {
         <Route render={({ history }) => <SearchBox history={history} />} />
       <Link to={`/add`}>  
         <Button
-          variant="contained"
-          color="secondary"
+          variant="primary"
           onClick={employeCreateHandler}
         >
           New

@@ -3,21 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { listEmployee, deletemployee } from "../store/employeeActions";
 import Loader from "../components/Loader";
 import Header from "../components/Header";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Link } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import IconButton from "@mui/material/IconButton";
-import TablePagination from "@material-ui/core/TablePagination";
+import PaginateComponent from "../components/PaginateComponent";
+import { LinkContainer } from "react-router-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
-
-const EmployesTable = ({ match}) => {
+const EmployesTable = ({ match }) => {
   const keyword = match.params.keyword;
 
   const pageNumber = match.params.pageNumber || 1;
@@ -25,7 +15,7 @@ const EmployesTable = ({ match}) => {
   const dispatch = useDispatch();
 
   const employeeList = useSelector((state) => state.employeeList);
-  const { loading, employee, error,page, pages } = employeeList;
+  const { loading, employee, error, page, pages } = employeeList;
 
   const employeeDelete = useSelector((state) => state.employeeDelete);
   const {
@@ -45,7 +35,7 @@ const EmployesTable = ({ match}) => {
   useEffect(() => {
     dispatch(listEmployee(keyword, pageNumber));
     console.log(employee);
-  }, [successDelete, keyword, dispatch,pageNumber]);
+  }, [successDelete, keyword, dispatch, pageNumber]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure")) {
@@ -71,61 +61,73 @@ const EmployesTable = ({ match}) => {
         <>
           {loadingDelete && <Loader />}
           {errorDelete && <p>{errorDelete}</p>}
-
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 200 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell> ID</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Salary</TableCell>
-                  <TableCell align="right">Address</TableCell>
-                  <TableCell align="right">Team</TableCell>
-                  <TableCell align="right">Gender</TableCell>
-                  <TableCell align="right">Options</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {employee.map((row) => (
-                  <TableRow key={row._id}>
-                    <TableCell component="th" scope="row">
-                      {row._id}
-                    </TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.salary}</TableCell>
-                    <TableCell align="right">{row.address}</TableCell>
-                    <TableCell align="right">{row.team}</TableCell>
-                    <TableCell align="right">{row.gender}</TableCell>
-                    <TableCell align="right">
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th> ID</th>
+                <th align="right">Name</th>
+                <th align="right">Salary</th>
+                <th align="right">Address</th>
+                <th align="right">Team</th>
+                <th align="right">Gender</th>
+                <th align="right">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employee.map((row) => (
+                <tr key={row._id}>
+                  <td component="th" scope="row">
+                    {row._id}
+                  </td>
+                  <td align="right">{row.name}</td>
+                  <td align="right">{row.salary}</td>
+                  <td align="right">{row.address}</td>
+                  <td align="right">{row.team}</td>
+                  <td align="right">{row.gender}</td>
+                  <td align="right">
+                    {/* <IconButton
+                      aria-label="delete"
+                      onClick={() => deleteHandler(row._id)}
+                      color="error"
+                      style={{ marginRight: "16px" }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <Link to={`/employee/${row._id}`}>
                       <IconButton
-                        aria-label="delete"
-                        onClick={() => deleteHandler(row._id)}
-                        color="error"
-                        style={{ marginRight: "16px" }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                      <Link to={`/employee/${row._id}`}>
-                        <IconButton
-                          color="secondary"
-                          startIcon={<EditIcon />}
-                          onClick={employeeUpdateHandler}
-                        ></IconButton>
+                        color="secondary"
+                        startIcon={<EditIcon />}
+                        onClick={employeeUpdateHandler}
+                      ></IconButton>
 
-                        <EditIcon />
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {/* <Link to=> </Link> */}
-
+                      <EditIcon />
+                    </Link> */}
+                    <LinkContainer to={`/employee/${row._id}`}>
+                      <Button variant="light" className="btn-sm">
+                        <i className="fas fa-edit"></i>
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(row._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <PaginateComponent
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ""}
+          />
         </>
       )}
     </>
   );
-};  
+};
 
 export default EmployesTable;

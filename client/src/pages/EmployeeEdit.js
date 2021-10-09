@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Button from "@mui/material/Button";
 import Loader from "../components/Loader";
 import {
   updateEmployee,
@@ -12,8 +7,25 @@ import {
   listEmployee,
 } from "../store/employeeActions";
 import { EMPLOYEE_UPDATE_RESET } from "./../store/employeeActions";
-import Snackbar from "@mui/material/Snackbar";
-import Box from "@mui/material/Box";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  ButtonGroup,
+  ToggleButton,
+} from "react-bootstrap";
+import FormContainer from "../components/FormContainer";
+import styled from "styled-components";
+
+const StyledForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  gap:30px;
+
+`;
 
 const EmployeeEdit = ({ match, history }) => {
   const employeeId = match.params.id;
@@ -70,6 +82,12 @@ const EmployeeEdit = ({ match, history }) => {
     );
   };
 
+  const radios = [
+    { name: "Male", value: "Male" },
+    { name: "Female", value: "Female" },
+    { name: "Other", value: "Other" },
+  ];
+
   return (
     <div>
       {loadingUpdate && <Loader />}
@@ -77,61 +95,77 @@ const EmployeeEdit = ({ match, history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Snackbar> {error}</Snackbar>
+        <p> {error}</p>
       ) : (
-        <form noValidate autoComplete="off">
-          <Box
-            display={{
-              display: "flex",
-              flexDirection: "column",
+        <FormContainer>
+          <Form onSubmit={submitHandler}>
+            <StyledForm>
+              <h1>Empployee Edit</h1>
 
-            }}
-          >
-            <TextField
-              label="Employee Name"
-              value={employeeName}
-              onChange={(e) => setEmployeeName(e.target.value)}
-            />
-            <TextField
-              label="Salary"
-              value={employeeSalary}
-              onChange={(e) => setEmployeeSalary(e.target.value)}
-            />
-            <TextField
-              label="Address"
-              value={employeeAddress}
-              onChange={(e) => setEmployeeAddress(e.target.value)}
-            />
-            <TextField
-              label="Team"
-              value={employeeTeam}
-              onChange={(e) => setEmployeeTeam(e.target.value)}
-            />
-            <RadioGroup
-              aria-label="gender"
-              defaultValue={employeeGender}
-              name="radio-buttons-group"
-              value={employeeGender}
-              onChange={(e) => setEmployeeGender(e.target.value)}
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
+              <Form.Control
+                label="Employee Name"
+                value={employeeName}
+                onChange={(e) => setEmployeeName(e.target.value)}
               />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
+              <Form.Control
+                label="Salary"
+                value={employeeSalary}
+                onChange={(e) => setEmployeeSalary(e.target.value)}
               />
-            </RadioGroup>
+              <Form.Control
+                label="Address"
+                value={employeeAddress}
+                onChange={(e) => setEmployeeAddress(e.target.value)}
+              />
+              <Form.Control
+                label="Team"
+                value={employeeTeam}
+                onChange={(e) => setEmployeeTeam(e.target.value)}
+              />
+              {/* <RadioGroup
+                aria-label="gender"
+                defaultValue={employeeGender}
+                name="radio-buttons-group"
+                value={employeeGender}
+                onChange={(e) => setEmployeeGender(e.target.value)}
+              >
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="other"
+                  control={<Radio />}
+                  label="Other"
+                />
+              </RadioGroup> */}
+              <ButtonGroup toggle>
+                {radios.map((radio, index) => (
+                  <ToggleButton
+                    key={index}
+                    type="radio"
+                    name="radio"
+                    value={radio.value}
+                    checked={employeeGender === radio.value}
+                    onChange={(e) => setEmployeeGender(e.currentTarget.value)}
+                  >
+                    {radio.name}
+                  </ToggleButton>
+                ))}
+              </ButtonGroup>
 
-            <Button variant="contained" onClick={submitHandler}>
-              Contained
-            </Button>
-          </Box>
-        </form>
+              <Button variant="primary" onClick={submitHandler}>
+                Contained
+              </Button>
+            </StyledForm>
+          </Form>
+        </FormContainer>
       )}
     </div>
   );

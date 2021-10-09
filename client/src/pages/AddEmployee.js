@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import useStyles from "@mui/material/useStyles";
-
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  ButtonGroup,
+  ToggleButton,
+} from "react-bootstrap";
 import Loader from "../components/Loader";
-
+import FormContainer from "../components/FormContainer";
 import { createEmployee } from "../store/employeeActions";
 import styled from "styled-components";
-import Box from "@mui/material/Box";
 
 const StyledFormContainer = styled.div`
   margin: auto;
@@ -15,10 +20,9 @@ const StyledFormContainer = styled.div`
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 700px;
-  gap:10px;
+  // justify-content: center;
+  // align-items: center;
+  gap:30px;
 
 `;
 
@@ -69,6 +73,11 @@ const AddEmploye = ({ match, history }) => {
     });
   };
 
+  const radios = [
+    { name: "Male", value: "Male" },
+    { name: "Female", value: "Female" },
+    { name: "Other", value: "Other" },
+  ];
   return (
     <>
       {loading ? (
@@ -76,29 +85,49 @@ const AddEmploye = ({ match, history }) => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <form noValidate autoComplete="off" style={{ margin: 'auto'}}>
-          <StyledForm>
-            <TextField
-              label="Employee Name"
-              value={employeeName}
-              onChange={(e) => setEmployeeName(e.target.value)}
-            />
-            <TextField
-              label="Salaray"
-              value={employeeSalary}
-              onChange={(e) => setEmployeeSalary(e.target.value)}
-            />
-            <TextField
-              label="Address"
-              value={employeeAddress}
-              onChange={(e) => setEmployeeAddress(e.target.value)}
-            />
-            <TextField
-              label="Team"
-              value={employeeTeam}
-              onChange={(e) => setEmployeeTeam(e.target.value)}
-            />
-              <RadioGroup
+        <FormContainer>
+          <Form onSubmit={addEmployeeHandler} className="m-3">
+            <StyledForm>
+            <h1>Empployee New</h1>
+
+              <Form.Group controlId="Name">
+                <Form.Control
+                  type="name"
+                  placeholder="Enter name"
+                  value={employeeName}
+                  onChange={(e) => setEmployeeName(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="Slaray">
+                <Form.Control
+                  type="number"
+                  label="Salaray"
+                  placeholder="Enter Salary"
+                  value={employeeSalary}
+                  onChange={(e) => setEmployeeSalary(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="Slaray">
+                <Form.Control
+                  label="Address"
+                  value={employeeAddress}
+                  placeholder="Enter Address"
+                  onChange={(e) => setEmployeeAddress(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Control
+                  label="Team"
+                  placeholder="Enter Team"
+                  value={employeeTeam}
+                  onChange={(e) => setEmployeeTeam(e.target.value)}
+                />
+              </Form.Group>
+
+              {/* <RadioGroup
                 aria-label="gender"
                 defaultValue="female"
                 name="radio-buttons-group"
@@ -122,13 +151,29 @@ const AddEmploye = ({ match, history }) => {
                   label="Other"
                 />
             </StyledRadio>
-              </RadioGroup>
+              </RadioGroup> */}
 
-            <Button variant="contained" onClick={addEmployeeHandler}>
-              Contained
-            </Button>
-          </StyledForm>
-        </form>
+              <ButtonGroup toggle>
+                {radios.map((radio, index) => (
+                  <ToggleButton
+                    key={index}
+                    type="radio"
+                    name="radio"
+                    value={radio.value}
+                    checked={employeeGender === radio.value}
+                    onChange={(e) => setEmployeeGender(e.currentTarget.value)}
+                  >
+                    {radio.name}
+                  </ToggleButton>
+                ))}
+              </ButtonGroup>
+
+              <Button variant="primary" onClick={addEmployeeHandler}>
+                Create
+              </Button>
+            </StyledForm>
+          </Form>
+        </FormContainer>
       )}
     </>
   );
