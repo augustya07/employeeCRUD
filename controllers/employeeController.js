@@ -2,9 +2,6 @@ import asyncHandler from 'express-async-handler'
 import Employee from "../models/employeeModel.js";
 
 
-const check = asyncHandler(async  (req,res ) => {
-    res.send('Working ')
-})
 
 const createEmployee = asyncHandler(async (req, res) => {
     const {
@@ -93,4 +90,4 @@ const updateEmployee = asyncHandler(async (req, res,) => {
 })
 
 
-export  {createEmployee,updateEmployee,deleteEmployee,check}
+export  {createEmployee,updateEmployee,deleteEmployee }

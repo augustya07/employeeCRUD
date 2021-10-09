@@ -7,7 +7,7 @@ import  store from './store/store'
 
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:5000/api/v1';
+axios.defaults.baseURL = 'http://172.105.52.8:5000/api/v1';
 
 ReactDOM.render(
   <Provider store={store}>
