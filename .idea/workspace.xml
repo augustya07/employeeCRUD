@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8cc6e5c-1b6a-4194-95bc-996ef9bae30a" name="Changes" comment="Employee controller  completed">
-      <change afterPath="$PROJECT_DIR$/routes/employeeRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MERN assignment.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/employeeController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/employeeController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/employeeModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/employeeModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/employeeRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/employeeRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +60,7 @@
       <workItem from="1633528912702" duration="30000" />
       <workItem from="1633528971341" duration="243000" />
       <workItem from="1633529217903" duration="163000" />
+      <workItem from="1633674596137" duration="3565000" />
     </task>
     <task id="LOCAL-00001" summary="Schema created">
       <created>1633522813354</created>

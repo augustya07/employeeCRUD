@@ -8,7 +8,7 @@ const employeeSchema =  new mongoose.Schema(
             minLength: [2, 'name is too short'],
             maxLength: [32, 'name is too long']
         },
-        salary: {
+        salary: { 
             type: Number,
             required: true
         },

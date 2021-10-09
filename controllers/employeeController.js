@@ -3,7 +3,7 @@ import Employee from "../models/employeeModel.js";
 
 
 const check = asyncHandler(async  (req,res ) => {
-    res.send('Working for')
+    res.send('Working ')
 })
 
 const createEmployee = asyncHandler(async (req, res) => {
@@ -31,7 +31,7 @@ const createEmployee = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: employee._id,
             name: employee.name,
-            salary: employee.address,
+            salary: employee.salary,
             address: employee.address,
             team: employee.team,
             gender: employee.gender
@@ -43,29 +43,7 @@ const createEmployee = asyncHandler(async (req, res) => {
 })
 
 
-const getEmployee = asyncHandler(async (req, res) => {
-    const employee = await Employee.findById(req.params.id)
 
-    if (employee) {
-        res.json({
-            _id: employee._id,
-            name: employee.name,
-            salary: employee.address,
-            address: employee.address,
-            team: employee.team,
-            gender: employee.gender
-        })
-    } else {
-        res.status(404)
-        throw new Error('Employee not found')
-    }
-})
-
-const getEmployees = asyncHandler(async (req, res, next) => {
-
-    const employee = await Employee.find({})
-    res.json(employee)
-})
 
 const deleteEmployee = asyncHandler(async (req, res,) => {
     const employee = await Employee.findById(req.params.id)
@@ -115,4 +93,4 @@ const updateEmployee = asyncHandler(async (req, res,) => {
 })
 
 
-export  {createEmployee,getEmployee,updateEmployee,deleteEmployee,getEmployees,check}
+export  {createEmployee,updateEmployee,deleteEmployee,check}
